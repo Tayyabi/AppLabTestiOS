@@ -29,7 +29,7 @@ struct DeviceHelper {
 
     // MARK: - Layout Values
     static var menuWidth: CGFloat {
-        isPad ? min(350, screenWidth * 0.4) : screenWidth * 0.65
+        isPad ? min(350, screenWidth * 0.4) : screenWidth * 0.58
     }
 
     static var contentPadding: CGFloat {
