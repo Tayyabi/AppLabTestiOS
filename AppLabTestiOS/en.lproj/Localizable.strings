@@ -11,6 +11,8 @@
 "feels_like" = "Feels like";
 "humidity" = "Humidity";
 "wind" = "Wind";
+"wind_direction" = "Direction";
+"wind_speed" = "Speed";
 "high" = "H";
 "low" = "L";
 

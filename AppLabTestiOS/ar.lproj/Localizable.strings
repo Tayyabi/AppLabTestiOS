@@ -11,6 +11,8 @@
 "feels_like" = "يبدو مثل";
 "humidity" = "الرطوبة";
 "wind" = "الرياح";
+"wind_direction" = "الاتجاه";
+"wind_speed" = "السرعة";
 "high" = "ع";
 "low" = "م";
 

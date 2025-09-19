@@ -287,17 +287,22 @@ struct HomeView: View {
                         title: "humidity".localized,
                         value: weather.humidity
                     )
-
                     weatherDetailItem(
                         icon: weather.windDirectionIcon,
-                        title: "wind".localized,
+                        title: "wind_direction".localized,
+                        value: weather.windDirection
+                    )
+
+                    weatherDetailItem(
+                        icon: "ic_wind",
+                        title: "wind_speed".localized,
                         value: weather.formattedWindSpeed
                     )
                 }
                 .padding(.horizontal, DeviceHelper.contentPadding)
             } else {
                 // iPhone: Use HStack layout
-                HStack(spacing: 40) {
+                HStack(spacing: 20) {
                     weatherDetailItem(
                         icon: "ic_humidity",
                         title: "humidity".localized,
@@ -306,7 +311,13 @@ struct HomeView: View {
 
                     weatherDetailItem(
                         icon: weather.windDirectionIcon,
-                        title: "wind".localized,
+                        title: "wind_direction".localized,
+                        value: weather.windDirection
+                    )
+
+                    weatherDetailItem(
+                        icon: "ic_wind",
+                        title: "wind_speed".localized,
                         value: weather.formattedWindSpeed
                     )
                 }
