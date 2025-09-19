@@ -1,0 +1,37 @@
+/* English Localization */
+
+/* Menu Items */
+"menu_home" = "Home";
+"menu_weather_news" = "Weather News";
+"menu_settings" = "Settings";
+"menu_about_us" = "About Us";
+"menu_contact_us" = "Contact Us";
+
+/* Weather Information */
+"feels_like" = "Feels like";
+"humidity" = "Humidity";
+"wind" = "Wind";
+"high" = "H";
+"low" = "L";
+
+/* Weather News */
+"weather_news_title" = "Weather News";
+"latest_weather_updates" = "Latest Weather Updates";
+"weather_forecast" = "Weather Forecast";
+
+/* General */
+"loading" = "Loading...";
+"error" = "Error";
+"retry" = "Retry";
+"ok" = "OK";
+"cancel" = "Cancel";
+
+/* Error Messages */
+"network_error" = "Network connection error. Please check your internet connection and try again.";
+"data_error" = "Unable to load weather data. Please try again later.";
+"no_data_available" = "No weather data available at the moment.";
+
+/* Navigation */
+"back" = "Back";
+"close" = "Close";
+"share" = "Share";

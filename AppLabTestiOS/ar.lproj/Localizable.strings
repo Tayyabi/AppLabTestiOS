@@ -1,0 +1,37 @@
+/* Arabic Localization */
+
+/* Menu Items */
+"menu_home" = "الرئيسية";
+"menu_weather_news" = "أخبار الطقس";
+"menu_settings" = "الإعدادات";
+"menu_about_us" = "من نحن";
+"menu_contact_us" = "اتصل بنا";
+
+/* Weather Information */
+"feels_like" = "يبدو مثل";
+"humidity" = "الرطوبة";
+"wind" = "الرياح";
+"high" = "ع";
+"low" = "م";
+
+/* Weather News */
+"weather_news_title" = "أخبار الطقس";
+"latest_weather_updates" = "آخر تحديثات الطقس";
+"weather_forecast" = "توقعات الطقس";
+
+/* General */
+"loading" = "جاري التحميل...";
+"error" = "خطأ";
+"retry" = "إعادة المحاولة";
+"ok" = "موافق";
+"cancel" = "إلغاء";
+
+/* Error Messages */
+"network_error" = "خطأ في الاتصال بالشبكة. يرجى التحقق من اتصال الإنترنت والمحاولة مرة أخرى.";
+"data_error" = "تعذر تحميل بيانات الطقس. يرجى المحاولة مرة أخرى لاحقاً.";
+"no_data_available" = "لا توجد بيانات طقس متاحة في الوقت الحالي.";
+
+/* Navigation */
+"back" = "رجوع";
+"close" = "إغلاق";
+"share" = "مشاركة";
