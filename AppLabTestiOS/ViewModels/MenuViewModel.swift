@@ -12,20 +12,33 @@ import Combine
 // MARK: - Menu View Model
 class MenuViewModel: ObservableObject {
     @Published var menuItems: [MenuItem] = MenuItem.allCases
-    @Published var selectedItem: MenuItem = .home
+    @Published var selectedItem: MenuItem = .dashboard
 
     private let navigationManager = NavigationManager.shared
     private let localizationManager = LocalizationManager.shared
 
     init() {
         // Observe navigation manager for selected menu item changes
-        selectedItem = navigationManager.selectedMenuItem
+        self.selectedItem = navigationManager.selectedMenuItem
     }
 
     /// Handle menu item selection
     func selectMenuItem(_ item: MenuItem) {
-        selectedItem = item
+        self.selectedItem = item
         navigationManager.navigate(to: item)
+    }
+
+    /// Handle share app functionality
+    func shareApp() {
+        let shareText = "Check out this amazing weather app!"
+        let activityVC = UIActivityViewController(activityItems: [shareText], applicationActivities: nil)
+
+        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+           let window = windowScene.windows.first {
+            window.rootViewController?.present(activityVC, animated: true)
+        }
+
+        closeMenu()
     }
 
     /// Check if menu item is currently selected

@@ -12,174 +12,140 @@ struct SideMenuView: View {
     @StateObject private var menuViewModel = MenuViewModel()
     @StateObject private var localizationManager = LocalizationManager.shared
     @StateObject private var navigationManager = NavigationManager.shared
-
+    
     var body: some View {
-        HStack(spacing: 0) {
-            // Menu Content
-            VStack(alignment: .leading, spacing: 0) {
-                // Menu Header
-                menuHeaderView
-
-                // Menu Items
-                menuItemsView
-
-                Spacer()
-
-                // Footer
-                menuFooterView
-            }
-            .frame(maxWidth: DeviceHelper.menuWidth)
-            .background(
-                LinearGradient(
-                    colors: [
-                        Color.blue.opacity(0.9),
-                        Color.blue.opacity(0.7)
-                    ],
-                    startPoint: .top,
-                    endPoint: .bottom
+        
+        ZStack {
+            
+            Image("bgWithWaves")
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+                .overlay(
+                    Color.black.opacity(0.3)
                 )
-            )
-            .environment(\.layoutDirection, menuViewModel.layoutDirection)
-
-            // Overlay to close menu when tapping outside
-            Color.black.opacity(0.3)
-                .onTapGesture {
-                    menuViewModel.closeMenu()
+                .ignoresSafeArea()
+            
+            HStack(spacing: 0) {
+                // Menu Content
+                VStack(alignment: .leading, spacing: 0) {
+                    // Menu Header with Logo and "Menu" label
+                    menuHeaderView
+                    
+                    // Scrollable Menu Items and Footer
+                    ScrollView(.vertical, showsIndicators: false) {
+                        VStack(spacing: 0) {
+                            // Menu Items
+                            menuItemsView
+                            
+                            // Language Toggle
+                            languageToggleView
+                            
+                            // Footer space
+                            Spacer(minLength: 40)
+                        }
+                    }
                 }
+                .frame(maxWidth: DeviceHelper.menuWidth, alignment: .leading)
+                .environment(\.layoutDirection, menuViewModel.layoutDirection)
+                
+                Spacer()
+                
+            }
+            
+            .transition(.asymmetric(
+                insertion: .move(edge: menuViewModel.layoutDirection == .rightToLeft ? .trailing : .leading)
+                    .combined(with: .opacity),
+                removal: .move(edge: menuViewModel.layoutDirection == .rightToLeft ? .trailing : .leading)
+                    .combined(with: .opacity)
+            ))
+            .animation(AnimationHelper.menuSlideAnimation, value: navigationManager.isMenuOpen)
         }
-        .ignoresSafeArea()
-        .transition(.asymmetric(
-            insertion: .move(edge: menuViewModel.layoutDirection == .rightToLeft ? .trailing : .leading)
-                .combined(with: .opacity),
-            removal: .move(edge: menuViewModel.layoutDirection == .rightToLeft ? .trailing : .leading)
-                .combined(with: .opacity)
-        ))
-        .animation(AnimationHelper.menuSlideAnimation, value: navigationManager.isMenuOpen)
+        .ignoresSafeArea(.all)
+        
     }
-
+    
     // MARK: - Menu Header
     private var menuHeaderView: some View {
-        VStack(alignment: .leading, spacing: 15) {
+        VStack(alignment: .leading, spacing: 20) {
             // Close Button
             HStack {
                 if menuViewModel.layoutDirection == .rightToLeft {
                     Spacer()
                 }
-
-                Button(action: {
-                    menuViewModel.closeMenu()
-                }) {
-                    Image(systemName: "xmark")
-                        .font(.system(size: 18, weight: .medium))
-                        .foregroundColor(.white)
-                        .frame(width: 30, height: 30)
-                        .background(Color.white.opacity(0.2))
-                        .clipShape(Circle())
-                }
-                .scaleButtonStyle()
-
+                
+                
                 if menuViewModel.layoutDirection == .leftToRight {
                     Spacer()
                 }
             }
-
+            
             // Logo
-            HStack {
-                if menuViewModel.layoutDirection == .rightToLeft {
-                    Spacer()
-                }
-
-                Image(menuViewModel.currentLanguageLogo)
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(height: DeviceHelper.isPad ? 50 : 40)
-
-                if menuViewModel.layoutDirection == .leftToRight {
-                    Spacer()
-                }
-            }
-
-            // Welcome Message
-            VStack(alignment: menuViewModel.layoutDirection == .rightToLeft ? .trailing : .leading, spacing: 5) {
-                Text("Welcome")
-                    .font(localizationManager.font(size: 24, weight: .light))
-                    .foregroundColor(.white)
-
-                Text("Select an option below")
-                    .font(localizationManager.font(size: 14))
-                    .foregroundColor(.white.opacity(0.8))
-            }
-            .padding(.horizontal, 20)
+            Image(menuViewModel.currentLanguageLogo)
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(height: DeviceHelper.isPad ? 120 : 100)
+            
+            // Menu Label
+            Text("Menu")
+                .font(localizationManager.font(size: 20, weight: .bold))
+                .foregroundColor(.yellow)
         }
         .padding(.top, 60)
         .padding(.horizontal, 20)
-        .padding(.bottom, 30)
+        .padding(.bottom, 20)
     }
-
+    
     // MARK: - Menu Items
     private var menuItemsView: some View {
-        VStack(spacing: 0) {
+        VStack(alignment: .leading, spacing: 0) {
             ForEach(Array(menuViewModel.menuItems.enumerated()), id: \.element.id) { index, item in
                 menuItemView(item: item)
                     .onTapGesture {
                         menuViewModel.selectMenuItem(item)
                     }
-                    .fadeInEffect(delay: Double(index) * 0.1)
-
+                
                 // Divider
                 if item != menuViewModel.menuItems.last {
                     Divider()
-                        .background(Color.white.opacity(0.3))
+                        .background(Color.white.opacity(0.2))
                         .padding(.horizontal, 20)
                 }
             }
         }
+        .padding(.top, 10)
     }
-
+    
     // MARK: - Menu Item View
     private func menuItemView(item: MenuItem) -> some View {
         let isSelected = menuViewModel.isSelected(item)
-
+        
         return HStack(spacing: 15) {
-            // Selection Indicator
-            Rectangle()
-                .fill(isSelected ? Color.white : Color.clear)
-                .frame(width: 4)
-
-            if menuViewModel.layoutDirection == .rightToLeft {
-                Spacer()
-            }
-
+            
+            
             // Menu Item Text
             Text(menuViewModel.localizedTitle(for: item))
                 .font(localizationManager.font(
-                    size: 18,
-                    weight: isSelected ? .medium : .regular
+                    size: 16,
+                    weight: isSelected ? .semibold : .medium
                 ))
-                .foregroundColor(isSelected ? .white : .white.opacity(0.8))
-
-            if menuViewModel.layoutDirection == .leftToRight {
-                Spacer()
-            }
-
-            // Arrow Indicator for navigable items
-            if item.isNavigable {
-                Image(systemName: menuViewModel.layoutDirection == .rightToLeft ? "chevron.left" : "chevron.right")
-                    .font(.system(size: 14, weight: .medium))
-                    .foregroundColor(.white.opacity(0.6))
-            }
+                .foregroundColor(.white)
+            
+            Spacer()
+            
         }
-        .padding(.vertical, 18)
+        .padding(.vertical, 14)
         .padding(.horizontal, 20)
         .background(
-            isSelected ? Color.white.opacity(0.1) : Color.clear
+            isSelected ? Color.white.opacity(0.15) : Color.clear
         )
         .contentShape(Rectangle())
     }
-
-    // MARK: - Menu Footer
-    private var menuFooterView: some View {
-        VStack(spacing: 15) {
+    
+    // MARK: - Language Toggle View
+    private var languageToggleView: some View {
+        VStack(spacing: 20) {
+            
+            
             // Language Toggle
             Button(action: {
                 menuViewModel.toggleLanguage()
@@ -187,32 +153,50 @@ struct SideMenuView: View {
                 HStack {
                     Image(systemName: "globe")
                         .font(.system(size: 16))
-                        .foregroundColor(.white.opacity(0.8))
-
+                        .foregroundColor(.white)
+                    
                     Text(menuViewModel.currentLanguageDisplayName)
                         .font(localizationManager.font(size: 16))
-                        .foregroundColor(.white.opacity(0.8))
-
+                        .foregroundColor(.white)
+                    
                     Spacer()
-
+                    
                     Text(localizationManager.currentLanguage == .english ? "العربية" : "English")
                         .font(localizationManager.font(size: 14))
-                        .foregroundColor(.white.opacity(0.6))
+                        .foregroundColor(.white.opacity(0.8))
                 }
                 .padding(.horizontal, 20)
-                .padding(.vertical, 12)
-                .background(Color.white.opacity(0.1))
-                .clipShape(RoundedRectangle(cornerRadius: 10))
+                .padding(.vertical, 15)
+                .background(Color.white.opacity(0.2))
+                .clipShape(RoundedRectangle(cornerRadius: 12))
             }
             .scaleButtonStyle()
-
-            // App Version
-            Text("Version 1.0.0")
-                .font(localizationManager.font(size: 12))
-                .foregroundColor(.white.opacity(0.5))
+            .padding(.horizontal, 20)
+            
+            // Share Button
+            Button(action: {
+                menuViewModel.shareApp()
+            }) {
+                HStack {
+                    Image("shareIcon")
+                        .resizable()
+                        .frame(width: 20, height: 25)
+                        .foregroundColor(.white)
+                    
+                    Text("Share app")
+                        .font(localizationManager.font(size: 16, weight: .medium))
+                        .foregroundColor(.white)
+                    
+                    Spacer()
+                }
+                .padding(.horizontal, 5)
+                .padding(.vertical, 15)
+                
+            }
+            .scaleButtonStyle()
+            .padding(.horizontal, 20)
         }
-        .padding(.horizontal, 20)
-        .padding(.bottom, 40)
+        .padding(.top, 10)
     }
 }
 

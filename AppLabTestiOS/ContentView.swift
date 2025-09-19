@@ -15,14 +15,15 @@ struct ContentView: View {
     var body: some View {
         NavigationStack(path: $navigationManager.navigationPath) {
             ZStack {
-                // Main Content
-                HomeView()
-
-                // Side Menu Overlay
+                // Side Menu (underneath)
                 if navigationManager.isMenuOpen {
                     SideMenuView()
-                        .zIndex(1)
+                        .zIndex(0)
                 }
+
+                // Main Content (on top)
+                HomeView()
+                    .zIndex(1)
             }
             .navigationDestination(for: NavigationDestination.self) { destination in
                 destinationView(for: destination)

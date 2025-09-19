@@ -1,11 +1,17 @@
 /* Arabic Localization */
 
 /* Menu Items */
-"menu_home" = "الرئيسية";
+"menu_dashboard" = "لوحة التحكم";
 "menu_weather_news" = "أخبار الطقس";
-"menu_settings" = "الإعدادات";
+"menu_rain_radar" = "رادار المطر";
+"menu_weather_stations" = "محطات الطقس";
+"menu_notification_center" = "مركز الإشعارات";
+"menu_monthly_reports" = "التقارير الشهرية";
+"menu_worldwide_cities" = "مدن العالم";
 "menu_about_us" = "من نحن";
-"menu_contact_us" = "اتصل بنا";
+"menu_settings" = "الإعدادات";
+"menu_disclaimer" = "إخلاء المسؤولية";
+"menu_share" = "مشاركة";
 
 /* Weather Information */
 "feels_like" = "يبدو مثل";
@@ -20,6 +26,9 @@
 "weather_news_title" = "أخبار الطقس";
 "latest_weather_updates" = "آخر تحديثات الطقس";
 "weather_forecast" = "توقعات الطقس";
+"welcome" = "مرحباً";
+"weather_news_description" = "هذه صفحة أخبار الطقس. يمكنك هنا عرض أحدث معلومات الطقس";
+"weather_overview" = "نظرة عامة على الطقس";
 
 /* General */
 "loading" = "جاري التحميل...";

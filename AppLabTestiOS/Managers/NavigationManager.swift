@@ -18,32 +18,47 @@ enum NavigationDestination: Hashable {
 
 // MARK: - Menu Items
 enum MenuItem: String, CaseIterable, Identifiable {
-    case home = "Home"
+    case dashboard = "Dashboard"
     case weatherNews = "Weather News"
-    case settings = "Settings"
+    case rainRadar = "Rain Radar"
+    case weatherStations = "Weather Stations"
+    case notificationCenter = "Notification Center"
+    case monthlyReports = "Monthly Reports"
+    case worldwideCities = "Worldwide Cities"
     case aboutUs = "About Us"
-    case contactUs = "Contact Us"
+    case settings = "Settings"
+    case disclaimer = "Disclaimer"
 
     var id: String { rawValue }
 
     var localizedKey: String {
         switch self {
-        case .home:
-            return "menu_home"
+        case .dashboard:
+            return "menu_dashboard"
         case .weatherNews:
             return "menu_weather_news"
-        case .settings:
-            return "menu_settings"
+        case .rainRadar:
+            return "menu_rain_radar"
+        case .weatherStations:
+            return "menu_weather_stations"
+        case .notificationCenter:
+            return "menu_notification_center"
+        case .monthlyReports:
+            return "menu_monthly_reports"
+        case .worldwideCities:
+            return "menu_worldwide_cities"
         case .aboutUs:
             return "menu_about_us"
-        case .contactUs:
-            return "menu_contact_us"
+        case .settings:
+            return "menu_settings"
+        case .disclaimer:
+            return "menu_disclaimer"
         }
     }
 
     var destination: NavigationDestination? {
         switch self {
-        case .home:
+        case .dashboard:
             return .home
         case .weatherNews:
             return .weatherNews
@@ -63,7 +78,7 @@ enum MenuItem: String, CaseIterable, Identifiable {
 class NavigationManager: ObservableObject {
     static let shared = NavigationManager()
 
-    @Published var selectedMenuItem: MenuItem = .home
+    @Published var selectedMenuItem: MenuItem = .dashboard
     @Published var navigationPath = NavigationPath()
     @Published var isMenuOpen = false
 
@@ -74,7 +89,7 @@ class NavigationManager: ObservableObject {
         switch destination {
         case .home:
             navigationPath = NavigationPath()
-            selectedMenuItem = .home
+            selectedMenuItem = .dashboard
         case .weatherNews:
             navigationPath.append(destination)
             selectedMenuItem = .weatherNews
@@ -120,7 +135,7 @@ class NavigationManager: ObservableObject {
     /// Pop to root view
     func popToRoot() {
         navigationPath = NavigationPath()
-        selectedMenuItem = .home
+        selectedMenuItem = .dashboard
     }
 
     /// Go back one level

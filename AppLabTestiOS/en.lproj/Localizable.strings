@@ -1,11 +1,17 @@
 /* English Localization */
 
 /* Menu Items */
-"menu_home" = "Home";
+"menu_dashboard" = "Dashboard";
 "menu_weather_news" = "Weather News";
-"menu_settings" = "Settings";
+"menu_rain_radar" = "Rain Radar";
+"menu_weather_stations" = "Weather Stations";
+"menu_notification_center" = "Notification Center";
+"menu_monthly_reports" = "Monthly Reports";
+"menu_worldwide_cities" = "Worldwide Cities";
 "menu_about_us" = "About Us";
-"menu_contact_us" = "Contact Us";
+"menu_settings" = "Settings";
+"menu_disclaimer" = "Disclaimer";
+"menu_share" = "Share";
 
 /* Weather Information */
 "feels_like" = "Feels like";
@@ -20,6 +26,9 @@
 "weather_news_title" = "Weather News";
 "latest_weather_updates" = "Latest Weather Updates";
 "weather_forecast" = "Weather Forecast";
+"welcome" = "Welcome";
+"weather_news_description" = "This is Weather News page. Here you can view the latest weather information";
+"weather_overview" = "Weather Overview";
 
 /* General */
 "loading" = "Loading...";
